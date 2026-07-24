@@ -1,10 +1,10 @@
-import { useSession } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
 import Tweets from 'components/Tweets'
 
-export default function index({ tweets }) {
+export default function Home({ tweets }) {
   const { data: session, status } = useSession()
   const router = useRouter()
 
@@ -21,12 +21,12 @@ export default function index({ tweets }) {
        <Tweets tweets={tweets} />
       <div className='text-center p-4 border m-4'>
         <h2 className='mb-10'>Join the conversation!</h2>
-        <a
+        <button
           className='border px-8 py-2 mt-5 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-color-accent-hover-darker'
-          href='/api/auth/signin'
+          onClick={() => signIn()}
         >
           login
-        </a>
+        </button>
       </div>
     </div>  
   )

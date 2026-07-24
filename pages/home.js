@@ -5,6 +5,7 @@ import Tweets from 'components/Tweets'
 import prisma from 'lib/prisma'
 import { getTweets } from 'lib/data.js'
 import LoadMore from 'components/LoadMore'
+import PageContainer from 'components/PageContainer'
 import { useState } from 'react'
 
 export default function Home({ initialTweets }) {
@@ -26,11 +27,11 @@ export default function Home({ initialTweets }) {
   }
 
   return (
-    <>
+    <PageContainer title='Home' showHomeLink={false}>
       <NewTweet tweets={tweets} setTweets={setTweets} />
-      <Tweets tweets={ tweets} />
+      <Tweets tweets={tweets} />
       <LoadMore tweets={tweets} setTweets={setTweets} />
-    </>
+    </PageContainer>
   )
 }
 

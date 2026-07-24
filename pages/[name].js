@@ -1,13 +1,19 @@
 import prisma from 'lib/prisma'
 import { getUserTweets } from 'lib/data.js'
 import Tweets from 'components/Tweets'
+import PageContainer from 'components/PageContainer'
+import ProfileHeader from 'components/ProfileHeader'
 
 export default function UserProfile({ name, tweets }) {
   return (
-    <>
-      <p className='text-center p-5'>User profile of {name}</p>
+    <PageContainer title={name}>
+      <ProfileHeader
+        name={name}
+        image={tweets[0]?.author.image}
+        tweetCount={tweets.length}
+      />
       <Tweets tweets={tweets} />
-    </>
+    </PageContainer>
   )
 }
 

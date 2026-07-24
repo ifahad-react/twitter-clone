@@ -1,13 +1,15 @@
 export default function LoadMore({ tweets, setTweets }) {
+    if (!tweets || tweets.length === 0) return null
+
     return (
-      <div className='mt-10 flex justify-center'>
+      <div className='flex justify-center border-b border-gray-800 py-4'>
         <button
-          className=' justify-self-center border px-8 py-2 mt-0 mr-2 font-bold rounded-full color-accent-contrast bg-color-accent hover:bg-color-accent-hover '
+          className='rounded-full border border-gray-700 px-6 py-2 font-bold text-sky-500 transition-colors hover:bg-sky-500/10'
           onClick={async () => {
             const lastTweetId = tweets[tweets.length - 1].id
             const res = await fetch(`/api/tweets?take=2&cursor=${lastTweetId}`)
             const data = await res.json()
-            setTweets([...tweets, ...data])  
+            setTweets([...tweets, ...data])
         }}
         >
           Load more

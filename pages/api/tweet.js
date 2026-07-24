@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 	if (!user) return res.status(401).json({ message: 'User not found' })
 
   if (req.method === 'POST') {
-	await prisma.tweet.create({
+	const tweet = await prisma.tweet.create({
         data: {
           content: req.body.content,
           parent: req.body.parent || null,
@@ -26,8 +26,11 @@ export default async function handler(req, res) {
             connect: { id: user.id },
           },
         },
+        include: {
+          author: true,
+        },
       })
-      res.end()
+      res.status(200).json(tweet)
       return
   }
 
